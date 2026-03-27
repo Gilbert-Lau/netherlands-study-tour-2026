@@ -28,6 +28,95 @@
     a { color: var(--teal); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* ── Password Screen ── */
+    #pw-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(135deg, var(--navy) 0%, #0d3a50 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #pw-screen.hidden { display: none; }
+    .pw-box {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    .pw-logo {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--white);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .pw-box h2 {
+      color: var(--white);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .pw-box p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+    .pw-input-wrap { position: relative; margin-bottom: 14px; }
+    .pw-input-wrap input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .pw-input-wrap input::placeholder { color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+    .pw-input-wrap input:focus { border-color: var(--gold); }
+    .pw-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .pw-btn:hover { background: #d4901a; }
+    .pw-btn:active { transform: scale(0.98); }
+    .pw-error {
+      color: #ff8080;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      min-height: 20px;
+    }
+    .pw-hint {
+      color: rgba(255,255,255,0.35);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      margin-top: 24px;
+    }
+
     /* ── Hero ── */
     .hero {
       position: relative;
@@ -206,40 +295,22 @@
     .est { color: var(--muted); font-size: 0.85rem; }
     .time-cell { font-family: 'Arial', sans-serif; font-weight: 600; color: var(--teal); white-space: nowrap; }
 
-    /* ── Destination cards ── */
-    .dest-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
-    }
-    .dest-card {
-      background: var(--white);
+    /* ── Two-column layout ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    .two-col img { width: 100%; border-radius: var(--radius); object-fit: cover; height: 280px; }
+
+    /* ── Visit details box ── */
+    .contact-box {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
       border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 24px 28px;
+      color: var(--white);
+      margin-top: 24px;
     }
-    section:nth-child(even) .dest-card { background: var(--light); }
-    .dest-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-    .dest-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
-    .dest-card-body { padding: 24px; }
-    .dest-card-body .day-tag {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 6px;
-    }
-    .dest-card-body h3 { margin-bottom: 6px; }
-    .dest-card-body .address {
-      font-family: 'Arial', sans-serif;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .dest-card-body p { font-size: 0.92rem; color: var(--text); }
+    .contact-box h4 { font-size: 0.9rem; margin-bottom: 10px; opacity: 0.85; }
+    .contact-box p { font-size: 0.9rem; margin: 0; opacity: 0.95; }
+    .contact-box strong { color: var(--gold); }
 
     /* ── Programme timeline ── */
     .timeline { position: relative; padding-left: 32px; }
@@ -269,23 +340,6 @@
     }
     .tl-title { font-weight: 700; color: var(--navy); margin-bottom: 2px; }
     .tl-desc { font-size: 0.9rem; color: var(--muted); }
-
-    /* ── Two-column layout ── */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-    .two-col img { width: 100%; border-radius: var(--radius); object-fit: cover; height: 280px; }
-
-    /* ── Contact box ── */
-    .contact-box {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
-      border-radius: var(--radius);
-      padding: 24px 28px;
-      color: var(--white);
-      margin-top: 24px;
-    }
-    .contact-box h4 { font-size: 0.9rem; margin-bottom: 10px; opacity: 0.85; }
-    .contact-box p { font-size: 0.9rem; margin: 0; opacity: 0.95; }
-    .contact-box strong { color: var(--gold); }
 
     /* ── Tips grid ── */
     .tips-grid {
@@ -321,13 +375,52 @@
       .dest-grid { grid-template-columns: 1fr; }
       .info-cards { grid-template-columns: 1fr; }
       .tips-grid { grid-template-columns: 1fr; }
+      .pw-box { padding: 36px 24px; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══════════════ PASSWORD SCREEN ══════════════ -->
+<div id="pw-screen">
+  <div class="pw-box">
+    <span class="pw-logo">CityUHK · Psychology Study Tour</span>
+    <h2>Netherlands 2026<br>Travel Guide</h2>
+    <p>This guide is for tour participants only.<br>Please enter the password to continue.</p>
+    <div class="pw-input-wrap">
+      <input type="password" id="pw-input" placeholder="Enter password" maxlength="20" autocomplete="off" />
+    </div>
+    <button class="pw-btn" onclick="checkPassword()">Unlock Guide</button>
+    <div class="pw-error" id="pw-error"></div>
+    <p class="pw-hint">Password provided by your tour leader</p>
+  </div>
+</div>
+
+<script>
+  // Check if already unlocked in this session
+  if (sessionStorage.getItem('tour_unlocked') === 'yes') {
+    document.getElementById('pw-screen').classList.add('hidden');
+  }
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === '5201314') {
+      sessionStorage.setItem('tour_unlocked', 'yes');
+      document.getElementById('pw-screen').classList.add('hidden');
+    } else {
+      const err = document.getElementById('pw-error');
+      err.textContent = 'Incorrect password. Please try again.';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+      setTimeout(() => { err.textContent = ''; }, 3000);
+    }
+  }
+  document.getElementById('pw-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+</script>
+
 <!-- ══════════════ HERO ══════════════ -->
-<section class="hero" id="top">
+<section class="hero">
   <img src="images/rotterdam_skyline.jpg" alt="Rotterdam skyline" />
   <div class="hero-content">
     <span class="hero-tag">CityUHK Department of Social and Behavioural Sciences</span>
@@ -531,12 +624,11 @@
       <div>
         <p>Founded in 1927, <strong>Tilburg University</strong> is a specialised university in the Netherlands with a strong focus on the social sciences, humanities, law, economics, and business. It is consistently ranked among the top universities in the Netherlands and is internationally recognised for its research output and student-centred teaching approach.</p>
         <p>The <strong>Tilburg School of Social and Behavioral Sciences</strong> is one of the university's flagship faculties. It houses departments covering psychology, sociology, human resource studies, and methodology and statistics. The school is known for its interdisciplinary approach, connecting psychological theory with real-world social challenges. Research groups within the school address topics ranging from clinical and health psychology to work and organisational behaviour.</p>
-        <p>Our visit will be hosted by <strong>Dr. Christine Fong</strong> and will include a guided campus tour as well as a meeting session with local professors and students — offering a valuable opportunity to exchange ideas and learn about the Dutch higher education experience in psychology.</p>
+        <p>Our visit will include a guided campus tour as well as a meeting session with local professors and students — offering a valuable opportunity to exchange ideas and learn about the Dutch higher education experience in psychology.</p>
         <div class="contact-box">
           <h4>Visit Details</h4>
           <p>📍 <strong>Address:</strong> Warandelaan 2, 5037 AB Tilburg<br>
           🕘 <strong>Depart Hotel:</strong> ~09:00 · Arrive ~10:00<br>
-          👤 <strong>Host:</strong> Dr. Christine Fong<br>
           🚌 <strong>Transport:</strong> Full-day coach (~1 hr drive from Rotterdam)</p>
         </div>
       </div>
@@ -558,8 +650,7 @@
           <h4>Visit Details</h4>
           <p>📍 <strong>Academy Building:</strong> Rapenburg 73, Leiden<br>
           📍 <strong>Agora Building:</strong> Faculty of Social &amp; Behavioural Sciences<br>
-          👤 <strong>Contact:</strong> Hungwah Lam, Head of International Relations<br>
-          📞 <strong>Phone / WhatsApp:</strong> +31 650 612 311</p>
+          🚌 <strong>Transport:</strong> Full-day coach (~35–45 min each way)</p>
         </div>
       </div>
       <div>
@@ -583,7 +674,7 @@
         <div class="tl-dot"></div>
         <div class="tl-time">13:00 — Academy Building, Rapenburg 73</div>
         <div class="tl-title">Welcome by the International Relations Office</div>
-        <div class="tl-desc">A general information session about Leiden University — its history, academic programmes, and international opportunities. The group will be welcomed at the gates by Hungwah Lam and his team.</div>
+        <div class="tl-desc">A general information session about Leiden University — its history, academic programmes, and international opportunities.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"></div>
@@ -628,13 +719,11 @@
       <div>
         <p><strong>Erasmus University Rotterdam (EUR)</strong> was founded in 1913 and is one of the most internationally oriented research universities in Europe. Named after the great Renaissance humanist Desiderius Erasmus of Rotterdam, the university has a particular strength in economics, management, medicine, and the social sciences. It consistently ranks among the top 200 universities in the world.</p>
         <p>The <strong>Erasmus School of Social and Behavioural Sciences (ESSB)</strong> is housed in the iconic Mandeville Building on the Woudestein campus. ESSB brings together researchers and students from psychology, pedagogy, public administration, and sociology. The school is internationally recognised for its research in work and organisational psychology, clinical psychology, and social psychology. It offers a broad range of Bachelor's, Master's, and PhD programmes, many of which are taught in English.</p>
-        <p>Our visit will be hosted by <strong>Oliwia Dysko</strong> (Exchange &amp; Bachelor Admissions Officer) and <strong>Dr. Marjan Gorgievski</strong> (Associate Professor and Programme Director, Bachelor Psychology). A special highlight will be a personal sharing session by <strong>Ms. Tereza Stancheva</strong>, a current Master's student in Clinical Psychology at ESSB and a former exchange student at CityUHK.</p>
+        <p>Our visit will include presentations, a campus tour, a meet &amp; greet with local students, and a special sharing session by a current Master's student in Clinical Psychology at ESSB who is a former exchange student at CityUHK.</p>
         <div class="contact-box">
           <h4>Visit Details</h4>
           <p>📍 <strong>Address:</strong> Mandeville Building, Burgemeester Oudlaan 50, 3062 PA Rotterdam<br>
           🕙 <strong>Visit starts:</strong> 10:00<br>
-          👤 <strong>Hosts:</strong> Oliwia Dysko &amp; Dr. Marjan Gorgievski<br>
-          📧 <strong>Contact:</strong> exchange@essb.eur.nl · +31 10 408 21 41<br>
           🚌 <strong>Transport:</strong> Full-day coach (~15–20 min from hotel)</p>
         </div>
       </div>
@@ -701,8 +790,8 @@
         <p>Try Dutch classics such as stroopwafels, bitterballen, and Dutch cheese. Rotterdam's Markthal is a great spot for a quick lunch. Breakfast is included at the hotel each morning.</p>
       </div>
       <div class="tip-card">
-        <h4>🏥 Emergency Contacts</h4>
-        <p>Emergency services: <strong>112</strong> (EU standard). Non-emergency police: <strong>0900-8844</strong>. Staff contact: Gilbert Lau (details to be provided separately).</p>
+        <h4>🏥 Emergency Services</h4>
+        <p>Emergency services: <strong>112</strong> (EU standard). Non-emergency police: <strong>0900-8844</strong>. Please refer to the information provided by your tour leader for group contact details.</p>
       </div>
       <div class="tip-card">
         <h4>🗣️ Language</h4>
