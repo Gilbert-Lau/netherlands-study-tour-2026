@@ -465,22 +465,7 @@
   });
 </script>
 
-<!-- ══════════════ HERO ══════════════ -->
-<section class="hero">
-  <img src="images/rotterdam_skyline.jpg" alt="Rotterdam skyline" />
-  <div class="hero-content">
-    <span class="hero-tag">CityUHK Department of Social and Behavioural Sciences</span>
-    <h1>Psychology Study Tour<br>Netherlands 2026</h1>
-    <p>An academic journey through Rotterdam, Tilburg, and Leiden — connecting with leading European psychology institutions and experiencing Dutch culture first-hand.</p>
-    <div class="hero-meta">
-      <span>📅 15 – 23 May 2026</span>
-      <span>👥 16 Students + 1 Staff</span>
-      <span>🏠 Based in Rotterdam</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════ NAV ══════════════ -->
+<!-- ══════════════ NAV (moved before hero) ══════════════ -->
 <nav>
   <a href="#overview">Overview</a>
   <div class="nav-group">
@@ -511,12 +496,27 @@
     document.getElementById('itinerary-btn').classList.remove('open');
     document.getElementById('itinerary-dropdown').classList.remove('open');
   }
-  // Close dropdown when clicking outside
   document.addEventListener('click', function(e) {
-    var group = document.querySelector('.nav-group');
-    if (group && !group.contains(e.target)) { closeDropdown(); }
+    if (!e.target.closest('.nav-group')) closeDropdown();
   });
 </script>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <img src="images/rotterdam_skyline.jpg" alt="Rotterdam skyline" />
+  <div class="hero-content">
+    <span class="hero-tag">CityUHK Department of Social and Behavioural Sciences</span>
+    <h1>Psychology Study Tour<br>Netherlands 2026</h1>
+    <p>An academic journey through Rotterdam, Tilburg, and Leiden — connecting with leading European psychology institutions and experiencing Dutch culture first-hand.</p>
+    <div class="hero-meta">
+      <span>📅 15 – 23 May 2026</span>
+      <span>👥 16 Students + 1 Staff</span>
+      <span>🏠 Based in Rotterdam</span>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ══════════════ OVERVIEW ══════════════ -->
 <section id="overview">
