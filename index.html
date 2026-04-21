@@ -179,13 +179,13 @@
 
     /* ── Nav ── */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 1000;
       background: var(--navy);
       padding: 0 32px;
       display: flex;
       align-items: center;
       gap: 4px;
-      overflow-x: auto;
+      overflow: visible;
       scrollbar-width: none;
     }
     nav::-webkit-scrollbar { display: none; }
@@ -229,14 +229,13 @@
     .nav-group-btn::after { content: '▾'; font-size: 0.7rem; opacity: 0.7; }
     .nav-dropdown {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
+      position: fixed;
+      top: 52px;
       background: #1a3a5c;
       border-radius: 0 0 10px 10px;
-      min-width: 210px;
-      z-index: 200;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      min-width: 220px;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
       padding: 6px 0;
     }
     .nav-dropdown.open { display: block; }
