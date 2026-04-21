@@ -206,11 +206,27 @@
     /* ── Nav dropdown group ── */
     .nav-group { position: relative; display: inline-flex; align-items: center; }
     .nav-group > a { display: inline-block; }
-    .nav-group > a.group-label::after {
-      content: ' ▾';
-      font-size: 0.7rem;
-      opacity: 0.7;
+    .nav-group-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 16px 14px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .nav-group-btn:hover { color: var(--white); border-bottom-color: var(--gold); }
+    .nav-group-btn.open { color: var(--white); border-bottom-color: var(--gold); }
+    .nav-group-btn::after { content: '▾'; font-size: 0.7rem; opacity: 0.7; }
     .nav-dropdown {
       display: none;
       position: absolute;
@@ -218,20 +234,20 @@
       left: 0;
       background: #1a3a5c;
       border-radius: 0 0 10px 10px;
-      min-width: 180px;
+      min-width: 210px;
       z-index: 200;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       padding: 6px 0;
     }
-    .nav-group:hover .nav-dropdown { display: block; }
+    .nav-dropdown.open { display: block; }
     .nav-dropdown a {
       display: block;
-      padding: 10px 18px;
+      padding: 11px 20px;
       font-size: 0.8rem;
-      border-bottom: none;
-      color: rgba(255,255,255,0.75);
+      border-bottom: none !important;
+      color: rgba(255,255,255,0.8);
     }
-    .nav-dropdown a:hover { background: rgba(255,255,255,0.08); color: var(--white); border-bottom: none; }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.1); color: var(--white); text-decoration: none; }
 
     /* ── Sections ── */
     section { padding: 72px 0; }
@@ -468,22 +484,39 @@
 <nav>
   <a href="#overview">Overview</a>
   <div class="nav-group">
-    <a href="#itinerary" class="group-label">Itinerary</a>
-    <div class="nav-dropdown">
-      <a href="#itinerary">Full Schedule</a>
-      <a href="#day1-venues">Day 1 — Rotterdam</a>
-      <a href="#day2-venues">Day 2 — Kinderdijk &amp; City</a>
-      <a href="#tilburg">Day 3 — Tilburg University</a>
-      <a href="#leiden">Day 4 — Leiden University</a>
-      <a href="#erasmus">Day 5 — Erasmus (ESSB)</a>
-      <a href="#neurobics">Day 6 — Neurobics</a>
+    <button class="nav-group-btn" id="itinerary-btn" onclick="toggleDropdown()">Itinerary</button>
+    <div class="nav-dropdown" id="itinerary-dropdown">
+      <a href="#itinerary" onclick="closeDropdown()">Full Schedule</a>
+      <a href="#rotterdam" onclick="closeDropdown()">Rotterdam</a>
+      <a href="#day1-venues" onclick="closeDropdown()">Day 1 — First Impressions</a>
+      <a href="#day2-venues" onclick="closeDropdown()">Day 2 — Kinderdijk &amp; City</a>
+      <a href="#tilburg" onclick="closeDropdown()">Day 3 — Tilburg University</a>
+      <a href="#leiden" onclick="closeDropdown()">Day 4 — Leiden University</a>
+      <a href="#erasmus" onclick="closeDropdown()">Day 5 — Erasmus (ESSB)</a>
+      <a href="#neurobics" onclick="closeDropdown()">Day 6 — Neurobics</a>
     </div>
   </div>
-  <a href="#rotterdam">Rotterdam</a>
   <a href="#foodie">Foodie Guide</a>
   <a href="#cautions">Cautions</a>
   <a href="#tips">Travel Tips</a>
 </nav>
+<script>
+  function toggleDropdown() {
+    var btn = document.getElementById('itinerary-btn');
+    var dd = document.getElementById('itinerary-dropdown');
+    btn.classList.toggle('open');
+    dd.classList.toggle('open');
+  }
+  function closeDropdown() {
+    document.getElementById('itinerary-btn').classList.remove('open');
+    document.getElementById('itinerary-dropdown').classList.remove('open');
+  }
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    var group = document.querySelector('.nav-group');
+    if (group && !group.contains(e.target)) { closeDropdown(); }
+  });
+</script>
 
 <!-- ══════════════ OVERVIEW ══════════════ -->
 <section id="overview">
